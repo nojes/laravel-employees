@@ -1,0 +1,45 @@
+{
+    "name": "nojes/laravel-employee",
+    "type": "library",
+    "description": "This package for employee management for Laravel Framework.",
+    "keywords": [
+        "nojes",
+        "laravel-employee",
+        "laravel",
+        "employee"
+    ],
+    "homepage": "https://github.com/nojes/laravel-employee",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Vyacheslav Nozhenko",
+            "email": "vv.nojenko@gmail.com",
+            "homepage": "https://github.com/nojes",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1",
+        "php" : "~5.6|~7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "nojes\\employee\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "nojes\\employee\\tests\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "nojes\\employee\\EmployeeServiceProvider"
+            ]
+        }
+    }
+}
