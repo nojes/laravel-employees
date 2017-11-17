@@ -3,7 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 
-This package for employee management for Laravel Framework.
+This package for employee management on Laravel Framework.
 
 ## Installation
 
@@ -29,10 +29,10 @@ $ php artisan vendor:publish --provider="nojes\employee\EmployeeServiceProvider"
 
 ## License
 
-The BSD 3-Clause License (BSD-3-Clause). Please see [License File](LICENSE.md) for more information.
+The BSD 3-Clause License (BSD-3-Clause). Please see [License File](LICENSE) for more information.
 
 
-[ico-version]: https://poser.pugx.org/nojes/laravel/v/stable
-[ico-license]: https://poser.pugx.org/nojes/laravel/license
+[ico-version]: https://poser.pugx.org/nojes/laravel-employee/v/stable
+[ico-license]: https://poser.pugx.org/nojes/laravel-employee/license
 
 [link-packagist]: https://packagist.org/packages/nojes/employee
