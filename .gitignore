@@ -1,5 +1,6 @@
 /src/node_modules
 /src/public/storage
+/database/*.mwb.bak
 /vendor
 .env
 *~

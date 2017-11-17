@@ -1,7 +1,6 @@
 # Laravel Employee
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE)
 
 This package for employee management on Laravel Framework.
 
@@ -28,6 +27,8 @@ $ php artisan vendor:publish --provider="nojes\employee\EmployeeServiceProvider"
 ```
 
 ## License
+
+[![Software License][ico-license]](LICENSE)
 
 The BSD 3-Clause License (BSD-3-Clause). Please see [License File](LICENSE) for more information.
 

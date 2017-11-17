@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateEmployeeTable extends Migration
+{
+    /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $set_schema_table = 'employee';
+
+    /**
+     * Run the migrations.
+     * @table employee
+     *
+     * @return void
+     */
+    public function up()
+    {
+        if (Schema::hasTable($this->set_schema_table)) return;
+
+        Schema::create($this->set_schema_table, function (Blueprint $table) {
+            $table->increments('id')->comment('ID');
+            $table->integer('head_id')->unsigned()->nullable()->comment('Head ID');
+            $table->integer('position_id')->unsigned()->nullable()->comment('Position ID');
+            $table->string('name', 64)->nullable()->comment('Name');
+            $table->string('surname', 64)->nullable()->comment('Surname');
+            $table->string('patronymic', 64)->nullable()->comment('Patronymic');
+            $table->integer('salary')->nullable()->comment('Salary');
+            $table->timestamp('hired_at')->nullable()->comment('Hired At');
+            $table->timestamps();
+        });
+
+        Schema::table($this->set_schema_table, function (Blueprint $table) {
+            $table->foreign('head_id')->references('id')->on($this->set_schema_table);
+            $table->foreign('position_id')->references('id')->on('employee_position');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+     public function down()
+     {
+        Schema::dropIfExists($this->set_schema_table);
+     }
+}
