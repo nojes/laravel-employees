@@ -1,6 +1,7 @@
 <?php
 namespace nojes\employee;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
@@ -21,6 +22,11 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected $defer = false;
 
     /**
+     * @var string Views path.
+     */
+    protected $viewsPath = 'resources/views/';
+
+    /**
      * Register the service provider.
      *
      * @see http://laravel.com/docs/master/providers#the-register-method
@@ -28,6 +34,9 @@ class EmployeeServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
+        $this->viewsPath = (!empty(config('employee.views_path')))
+            ? base_path(config('employee.views_path'))
+            : $this->packagePath($this->viewsPath);
     }
 
     /**
@@ -38,10 +47,10 @@ class EmployeeServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
-
         $this->registerViews();
         $this->registerMigrations();
         $this->registerSeeds();
+        $this->registerFactories();
         $this->registerAssets();
         $this->registerTranslations();
         $this->registerConfigurations();
@@ -60,10 +69,10 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected function registerViews()
     {
         // register views within the application with the set namespace
-        $this->loadViewsFrom($this->packagePath('resources/views'), 'employee');
+        $this->loadViewsFrom($this->viewsPath, 'employee');
         // allow views to be published to the storage directory
         $this->publishes([
-            $this->packagePath('resources/views') => base_path('resources/views/nojes/employee'),
+            $this->packagePath('resources/views') => base_path($this->viewsPath),
         ], 'views');
     }
 
@@ -106,6 +115,19 @@ class EmployeeServiceProvider extends BaseServiceProvider
     }
 
     /**
+     * Register the package public assets
+     *
+     * @see http://laravel.com/docs/master/packages#public-assets
+     * @return void
+     */
+    protected function registerFactories()
+    {
+        $this->publishes([
+            $this->packagePath('database/factories') => database_path('/factories'),
+        ], 'public');
+    }
+
+    /**
      * Register the package translations
      *
      * @see http://laravel.com/docs/master/packages#translations
@@ -143,14 +165,12 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected function registerRoutes()
     {
         $this->app['router']->group([
-            'namespace' => __NAMESPACE__
-        ], function($router) {
-            // (Example) index action showing the packages
-            $router->any('/employee', [
-                'as'   => 'employee:index',
-                'uses' => 'Controllers\EmployeeController@index'
-            ]);
-
+            'namespace' => __NAMESPACE__,
+            'middleware' => ['web'],
+            'prefix' => 'employees'
+        ], function(Router $router) {
+            $router->resource('employee', 'Http\Controllers\EmployeeController');
+            $router->resource('position', 'Http\Controllers\PositionController');
         });
     }
 
