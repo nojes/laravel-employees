@@ -26,17 +26,17 @@ class CreateEmployeeTable extends Migration
             $table->increments('id')->comment('ID');
             $table->integer('head_id')->unsigned()->nullable()->comment('Head ID');
             $table->integer('position_id')->unsigned()->nullable()->comment('Position ID');
-            $table->string('name', 64)->nullable()->comment('Name');
-            $table->string('surname', 64)->nullable()->comment('Surname');
-            $table->string('patronymic', 64)->nullable()->comment('Patronymic');
+            $table->string('name')->nullable()->comment('Name');
             $table->integer('salary')->nullable()->comment('Salary');
             $table->timestamp('hired_at')->nullable()->comment('Hired At');
             $table->timestamps();
         });
 
         Schema::table($this->set_schema_table, function (Blueprint $table) {
-            $table->foreign('head_id')->references('id')->on($this->set_schema_table);
-            $table->foreign('position_id')->references('id')->on('employee_position');
+            $table->foreign('head_id')->references('id')->on($this->set_schema_table)
+                ->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('position_id')->references('id')->on('employee_position')
+                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
