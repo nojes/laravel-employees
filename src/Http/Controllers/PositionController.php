@@ -1,11 +1,11 @@
 <?php
 
-namespace nojes\employee\Http\Controllers;
+namespace nojes\employees\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use nojes\employee\Models\Position;
+use nojes\employees\Models\Position;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -32,7 +32,7 @@ class PositionController extends Controller
             $positions = Position::paginate($perPage);
         }
 
-        return view('employee::backend.position.index', compact('positions'));
+        return view('employees::backend.position.index', compact('positions'));
     }
 
     /**
@@ -42,7 +42,7 @@ class PositionController extends Controller
      */
     public function create()
     {
-        return view('employee::backend.position.create');
+        return view('employees::backend.position.create');
     }
 
     /**
@@ -73,7 +73,7 @@ class PositionController extends Controller
     {
         $positions = Position::findOrFail($id);
 
-        return view('employee::backend.position.show', compact('positions'));
+        return view('employees::backend.position.show', compact('positions'));
     }
 
     /**
@@ -87,7 +87,7 @@ class PositionController extends Controller
     {
         $positions = Position::findOrFail($id);
 
-        return view('employee::backend.position.edit', compact('positions'));
+        return view('employees::backend.position.edit', compact('positions'));
     }
 
     /**

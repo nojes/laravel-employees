@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('employee::backend.sidebar')
+            @include('employees::backend.sidebar')
 
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -25,7 +25,7 @@
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
-                            @include ('employee::backend.employee.form', ['submitButtonText' => 'Update'])
+                            @include ('employees::backend.employee.form', ['submitButtonText' => 'Update'])
 
                         </form>
 

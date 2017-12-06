@@ -3,12 +3,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('employee::backend.sidebar')
+            @include('employees::backend.sidebar')
 
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Position {{ $position->id }}</div>
-                    <div class="panel-boemployeesdy">
+                    <div class="panel-body">
 
                         <a href="{{ url('/employees/position') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a href="{{ url('/employees/position/' . $position->id . '/edit') }}" title="Edit Position"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

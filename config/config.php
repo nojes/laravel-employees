@@ -12,5 +12,5 @@ return [
     | ('{package-path}/resources/views/' by default)
     |--------------------------------------------------------------------------
     */
-    'views_path' => 'resources/views/nojes/employee/'
+    'views_path' => 'resources/views/nojes/employees/'
 ];

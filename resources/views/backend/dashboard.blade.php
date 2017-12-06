@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('employee::backend.sidebar')
+            @include('employees::backend.sidebar')
 
             <div class="col-md-9">
                 <div class="panel panel-default">

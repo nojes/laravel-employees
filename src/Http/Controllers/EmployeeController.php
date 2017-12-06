@@ -1,12 +1,12 @@
 <?php
 
-namespace nojes\employee\Http\Controllers;
+namespace nojes\employees\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use nojes\employee\Models\Employee;
-use nojes\employee\Models\Position;
+use nojes\employees\Models\Employee;
+use nojes\employees\Models\Position;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -41,7 +41,7 @@ class EmployeeController extends Controller
                 ->paginate($perPage);
         }
 
-        return view('employee::backend.employee.index', compact('employees'));
+        return view('employees::backend.employee.index', compact('employees'));
     }
 
     /**
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
         $positions = Position::all();
         $heads = Employee::all();
 
-        return view('employee::backend.employee.create', compact('positions', 'heads'));
+        return view('employees::backend.employee.create', compact('positions', 'heads'));
     }
 
     /**
@@ -84,7 +84,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::with(['head', 'position'])->findOrFail($id);
 
-        return view('employee::backend.employee.show', compact('employee'));
+        return view('employees::backend.employee.show', compact('employee'));
     }
 
     /**
@@ -100,7 +100,7 @@ class EmployeeController extends Controller
         $heads = Employee::all()->except($id);
         $positions = Position::all();
 
-        return view('employee::backend.employee.edit', compact(
+        return view('employees::backend.employee.edit', compact(
             'employee', 'heads', 'positions'
         ));
     }

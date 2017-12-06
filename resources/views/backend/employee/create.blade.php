@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('employee::backend.sidebar')
+            @include('employees::backend.sidebar')
 
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -24,7 +24,7 @@
                         <form method="POST" action="{{ url('employees/employee') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('employee::backend.employee.form')
+                            @include ('employees::backend.employee.form')
 
                         </form>
 

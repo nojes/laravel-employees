@@ -2,20 +2,20 @@
 
 @php
 /**
- * @var \nojes\employee\Models\Employee $employees[]
+ * @var \nojes\employees\Models\Employee $employees[]
  */
 @endphp
 
 @section('content')
     <div class="container">
         <div class="row">
-            @include('employee::backend.sidebar')
+            @include('employees::backend.sidebar')
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Employee</div>
+                    <div class="panel-heading">Employees</div>
                     <div class="panel-body">
                         <a href="{{ url('/employees/employee/create') }}" class="btn btn-success btn-sm" title="Add New Employee">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New

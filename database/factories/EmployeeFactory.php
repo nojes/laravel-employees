@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
-use nojes\employee\Models\Employee;
-use nojes\employee\Models\Position;
+use nojes\employees\Models\Employee;
+use nojes\employees\Models\Position;
 
 $factory->define(Employee::class, function (Faker $faker) {
     $employees = Employee::all();

@@ -1,7 +1,7 @@
 @php
 /**
- * @var \nojes\employee\Models\Position $positions[]
- * @var \nojes\employee\Models\Employee $employee
+ * @var \nojes\employees\Models\Position $positions[]
+ * @var \nojes\employees\Models\Employee $employee
  */
 @endphp
 

@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use nojes\employee\Models\Position;
+use nojes\employees\Models\Position;
 
 $factory->define(Position::class, function (Faker $faker) {
     return [

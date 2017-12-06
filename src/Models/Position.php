@@ -1,6 +1,6 @@
 <?php
 
-namespace nojes\employee\Models;
+namespace nojes\employees\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

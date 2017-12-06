@@ -1,14 +1,16 @@
 {
-    "name": "nojes/laravel-employee",
-    "type": "library",
-    "description": "This package for employee management for Laravel Framework.",
+    "name": "nojes/laravel-employees",
+    "type": "package",
+    "description": "This package for employees management for Laravel Framework.",
     "keywords": [
         "nojes",
-        "laravel-employee",
+        "laravel-employees",
         "laravel",
-        "employee"
+        "employees",
+        "employee",
+        "crud"
     ],
-    "homepage": "https://github.com/nojes/laravel-employee",
+    "homepage": "https://github.com/nojes/laravel-employees",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -24,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "nojes\\employee\\": "src"
+            "nojes\\employees\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "nojes\\employee\\tests\\": "tests"
+            "nojes\\employees\\tests\\": "tests"
         }
     },
     "extra": {
@@ -38,7 +40,7 @@
         },
         "laravel": {
             "providers": [
-                "nojes\\employee\\EmployeeServiceProvider"
+                "nojes\\employees\\EmployeesServiceProvider"
             ]
         }
     }

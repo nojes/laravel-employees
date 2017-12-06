@@ -1,6 +1,6 @@
 <?php
 
-namespace nojes\employee\Models;
+namespace nojes\employees\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,11 +39,11 @@ class Employee extends Model
 
     public function head()
     {
-        return $this->belongsTo('nojes\employee\Models\Employee', 'head_id')->withDefault();
+        return $this->belongsTo('nojes\employees\Models\Employee', 'head_id')->withDefault();
     }
 
     public function position()
 	{
-		return $this->belongsTo('nojes\employee\Models\Position', 'position_id')->withDefault();
+		return $this->belongsTo('nojes\employees\Models\Position', 'position_id')->withDefault();
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-namespace nojes\employee;
+namespace nojes\employees;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -7,11 +7,11 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 /**
  * Class PackageServiceProvider
  *
- * @package nojes\employee
+ * @package nojes\employees
  * @see http://laravel.com/docs/master/packages#service-providers
  * @see http://laravel.com/docs/master/providers
  */
-class EmployeeServiceProvider extends BaseServiceProvider
+class EmployeesServiceProvider extends BaseServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -34,8 +34,8 @@ class EmployeeServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->viewsPath = (!empty(config('employee.views_path')))
-            ? base_path(config('employee.views_path'))
+        $this->viewsPath = (!empty(config('employees.views_path')))
+            ? base_path(config('employees.views_path'))
             : $this->packagePath($this->viewsPath);
     }
 
@@ -55,7 +55,7 @@ class EmployeeServiceProvider extends BaseServiceProvider
         $this->registerTranslations();
         $this->registerConfigurations();
 
-        if(! $this->app->routesAreCached() && config('employee.routes')) {
+        if(! $this->app->routesAreCached() && config('employees.routes')) {
             $this->registerRoutes();
         }
     }
@@ -69,7 +69,7 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected function registerViews()
     {
         // register views within the application with the set namespace
-        $this->loadViewsFrom($this->viewsPath, 'employee');
+        $this->loadViewsFrom($this->viewsPath, 'employees');
         // allow views to be published to the storage directory
         $this->publishes([
             $this->packagePath('resources/views') => base_path($this->viewsPath),
@@ -110,7 +110,7 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected function registerAssets()
     {
         $this->publishes([
-            $this->packagePath('resources/assets') => public_path('nojes/employee'),
+            $this->packagePath('resources/assets') => public_path('nojes/employees'),
         ], 'public');
     }
 
@@ -135,7 +135,7 @@ class EmployeeServiceProvider extends BaseServiceProvider
      */
     protected function registerTranslations()
     {
-        $this->loadTranslationsFrom($this->packagePath('resources/lang'), 'employee');
+        $this->loadTranslationsFrom($this->packagePath('resources/lang'), 'employees');
     }
 
     /**
@@ -147,10 +147,10 @@ class EmployeeServiceProvider extends BaseServiceProvider
     protected function registerConfigurations()
     {
         $this->mergeConfigFrom(
-            $this->packagePath('config/config.php'), 'employee'
+            $this->packagePath('config/config.php'), 'employees'
         );
         $this->publishes([
-            $this->packagePath('config/config.php') => config_path('employee.php'),
+            $this->packagePath('config/config.php') => config_path('employees.php'),
         ], 'config');
     }
 
