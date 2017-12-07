@@ -34,6 +34,8 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
+        $this->commands('\nojes\employees\Console\InstallCommand');
+
         $this->viewsPath = (!empty(config('employees.views_path')))
             ? base_path(config('employees.views_path'))
             : $this->packagePath($this->viewsPath);
@@ -68,11 +70,10 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerViews()
     {
-        // register views within the application with the set namespace
         $this->loadViewsFrom($this->viewsPath, 'employees');
-        // allow views to be published to the storage directory
+
         $this->publishes([
-            $this->packagePath('resources/views') => base_path($this->viewsPath),
+            $this->packagePath('resources/views') => base_path('resources/views/nojes/employees/'),
         ], 'views');
     }
 

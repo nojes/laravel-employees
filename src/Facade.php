@@ -1,5 +1,5 @@
 <?php
-namespace nojes\employee;
+namespace nojes\employees;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {
@@ -8,6 +8,6 @@ class Facade extends \Illuminate\Support\Facades\Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'employee';
+        return 'employees';
     }
 }

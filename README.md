@@ -8,7 +8,7 @@ This package for employees management on Laravel Framework.
 
 Via Composer
 
-```bash
+```
 $ composer require nojes/laravel-employees
 ```
 
@@ -18,12 +18,22 @@ If you do not run Laravel 5.5 (or higher), then add the service provider in `con
 nojes\employees\EmployeesServiceProvider::class,
 ```
 
-If you do run the package on Laravel 5.5+, [package auto-discovery](https://medium.com/@taylorotwell/package-auto-discovery-in-laravel-5-5-ea9e3ab20518) takes care of the magic of adding the service provider.
+If you do run the package on Laravel 5.5+, just run:
+```
+$ php artisan employees:install
+```
 
 Optional you can publish the configuration to provide an own service provider stub.
+([package auto-discovery](https://medium.com/@taylorotwell/package-auto-discovery-in-laravel-5-5-ea9e3ab20518))
 
-```bash
+```
 $ php artisan vendor:publish --provider="nojes\employees\EmployeesServiceProvider"
+```
+
+### Database seeding
+This command will seed models tables with test data:
+```
+$ php artisan db:seed --class=EmployeesDatabaseSeeder
 ```
 
 ## License
@@ -36,4 +46,4 @@ The BSD 3-Clause License (BSD-3-Clause). Please see [License File](LICENSE) for 
 [ico-version]: https://poser.pugx.org/nojes/laravel-employees/v/stable
 [ico-license]: https://poser.pugx.org/nojes/laravel-employees/license
 
-[link-packagist]: https://packagist.org/packages/nojes/employees
+[link-packagist]: https://packagist.org/packages/nojes/laravel-employees
