@@ -73,7 +73,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
         $this->loadViewsFrom($this->viewsPath, 'employees');
 
         $this->publishes([
-            $this->packagePath('resources/views') => base_path('resources/views/nojes/employees/'),
+            $this->packagePath('resources/views') => base_path('resources/views/vendor/employees/'),
         ], 'views');
     }
 
