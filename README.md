@@ -38,10 +38,10 @@ $ php artisan db:seed --class="nojes\employees\database\seeds\EmployeesDatabaseS
 
 or separately:
 
-| Model                           | Command                                                                                         |
-|---------------------------------|-------------------------------------------------------------------------------------------------|
-| nojes\employees\Models\Employee | ```$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeeTableSeeder"```        |
-| nojes\employees\Models\Position | ```$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeePositionTableSeeder"```  |
+| Model    | Command                                                                                        |
+|----------|------------------------------------------------------------------------------------------------|
+| Employee | `$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeeTableSeeder"`           |
+| Position | `$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeePositionTableSeeder"`   |
 
 
 ## License
