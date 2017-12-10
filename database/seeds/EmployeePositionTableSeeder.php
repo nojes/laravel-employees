@@ -1,64 +1,39 @@
 <?php
 
+namespace nojes\employees\database\seeds;
+
 use Illuminate\Database\Seeder;
 use nojes\employees\Models\Position;
 
 class EmployeePositionTableSeeder extends Seeder
 {
+    CONST INSERT_METHOD = 'insert';
+    CONST FACTORY_METHOD = 'factory';
+
     /**
-     * @var bool Use the `PositionFactory`.
+     * @var string Run method.
      */
-    public $useFactory = false;
+    protected $method = self::INSERT_METHOD;
 
     /**
      * @var array Position titles.
      */
-    public static $titles = [
-        'Accessibility Specialist',
-        'Agile Project Manager',
-        'Business Systems Analyst',
-        'Cloud Architect',
-        'Computer Graphics Animator',
-        'Computer Network Architect',
-        'Computer Support Specialist',
-        'Content Manager',
-        'Content Strategist',
-        'Data Analyst',
-        'Data Architect',
-        'Data Modeler',
-        'Data Scientist',
-        'Database Administrator',
-        'Database Administrator',
-        'Designer',
-        'DevOps Manager',
-        'Digital Marketing Manager',
-        'Frameworks Specialist',
-        'Front-End Designer',
-        'Front-End Developer',
-        'Full-Stack Developer',
-        'Game Developer',
-        'Growth Hacker',
-        'Information Architect',
-        'Information Security Analyst',
-        'Interaction Designer',
-        'Marketing Technologist',
-        'Mobile App Developer',
-        'Mobile Developer',
-        'Product Manager',
-        'Project Lead',
-        'QA (Quality Assurance) Specialist',
-        'Security Specialist',
-        'SEO Consultant',
-        'Social Media Manager',
-        'Software Developer',
-        'Systems Administrator',
-        'Systems Engineer',
-        'Technical Account Manager',
-        'Technical Lead',
-        'UI Designer',
-        'UX Designer',
-        'Web Analytics Developer',
-    ];
+    protected $titles = [];
+
+    /**
+     * @var int Positions create count.
+     */
+    protected $count;
+
+    /**
+     * EmployeePositionTableSeeder constructor.
+     */
+    public function __construct()
+    {
+        $this->method = config('employees.seeds.position.method', $this->method);
+        $this->titles = config('employees.seeds.position.titles', []);
+        $this->count = config('employees.seeds.position.count', count($this->titles));
+    }
 
     /**
      * Run the database seeds.
@@ -67,14 +42,32 @@ class EmployeePositionTableSeeder extends Seeder
      */
     public function run()
     {
-        if (!$this->useFactory) {
-            foreach (self::$titles as $title) {
-                (new Position(['title' => $title]))->save();
+        $this->command->info('Using `'.$this->method.'` seeding method.');
+        $this->{$this->method}();
+        $this->command->info('Inserted '.$this->count.' records.');
+    }
+
+    /**
+     * Uses `employees.seeds.position.titles` for seeding.
+     */
+    protected function insert()
+    {
+        foreach ($this->titles as $index => $title) {
+            $position = new Position(['title' => $title]);
+            if (!$position->save()) {
+                $this->command->info("Insert failed at record $index.");
+                return;
             }
-        } else {
-            factory(Position::class, count(self::$titles))->create()->each(function($model) {
-                $model->save();
-            });
         }
+    }
+
+    /**
+     * Uses `PositionFactory` for seeding.
+     */
+    protected function factory()
+    {
+        factory(Position::class, count($this->titles))->create()->each(function($model) {
+            $model->save();
+        });
     }
 }

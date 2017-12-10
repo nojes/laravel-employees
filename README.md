@@ -31,10 +31,18 @@ $ php artisan vendor:publish --provider="nojes\employees\EmployeesServiceProvide
 ```
 
 ### Database seeding
-This command will seed models tables with test data:
+If you want to have some example entries in the database, this command will seed models tables with test data:
 ```
-$ php artisan db:seed --class=EmployeesDatabaseSeeder
+$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeesDatabaseSeeder"
 ```
+
+or separately:
+
+| Model                           | Command                                                                                         |
+|---------------------------------|-------------------------------------------------------------------------------------------------|
+| nojes\employees\Models\Employee | ```$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeeTableSeeder"```        |
+| nojes\employees\Models\Position | ```$ php artisan db:seed --class="nojes\employees\database\seeds\EmployeePositionTableSeeder"```  |
+
 
 ## License
 

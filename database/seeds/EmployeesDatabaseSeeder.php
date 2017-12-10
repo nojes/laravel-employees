@@ -1,5 +1,7 @@
 <?php
 
+namespace nojes\employees\database\seeds;
+
 use Illuminate\Database\Seeder;
 
 class EmployeesDatabaseSeeder extends Seeder

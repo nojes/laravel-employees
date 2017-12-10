@@ -3,6 +3,9 @@ namespace nojes\employees;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
+use nojes\employees\Models\Employee;
+use nojes\employees\Models\Position;
 
 /**
  * Class PackageServiceProvider
@@ -51,7 +54,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
     {
         $this->registerViews();
         $this->registerMigrations();
-        $this->registerSeeds();
+//        $this->registerSeeds();
         $this->registerFactories();
         $this->registerAssets();
         $this->registerTranslations();
@@ -123,6 +126,9 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerFactories()
     {
+//        $this->app->make(EloquentFactory::class)->load($this->packagePath('database/factories'));
+//        $this->app->make(EloquentFactory::class)->load($this->packagePath('database/factories'));
+
         $this->publishes([
             $this->packagePath('database/factories') => database_path('/factories'),
         ], 'public');

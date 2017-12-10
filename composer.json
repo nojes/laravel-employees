@@ -26,7 +26,8 @@
     },
     "autoload": {
         "psr-4": {
-            "nojes\\employees\\": "src"
+            "nojes\\employees\\": "src",
+            "nojes\\employees\\database\\seeds\\": "database/seeds"
         }
     },
     "autoload-dev": {
