@@ -54,9 +54,9 @@ class InstallCommand extends Command
         $this->info("Migrating the database tables into your application...");
         $this->call('migrate');
 
-//        if ($this->confirm('Do you want to seed your database with test data? (only `employee`, `employee_position` tables)')) {
-//            $this->call('db:seed', ['--class' => 'EmployeesDatabaseSeeder']);
-//        }
+        if ($this->confirm('Do you want to seed your database with test data? (only `employee`, `employee_position` tables)')) {
+            $this->call('db:seed', ['--class' => 'nojes\employees\database\seeds\EmployeesDatabaseSeeder']);
+        }
 
         $this->info("Laravel Employees is successfully installed!\n");
     }
