@@ -13,9 +13,7 @@ class EmployeesDatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call([
-             EmployeePositionTableSeeder::class,
-             EmployeeTableSeeder::class
-         ]);
+         $this->call(EmployeePositionTableSeeder::class);
+         $this->call(EmployeeTableSeeder::class);
     }
 }
