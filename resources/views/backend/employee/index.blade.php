@@ -39,6 +39,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Photo</th>
                                         <th>Name</th>
                                         <th>Head</th>
                                         <th>Position</th>
@@ -52,6 +53,9 @@
                                 @foreach($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration or $employee->id }}</td>
+                                        <td>
+                                            <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="30px" height="30px">
+                                        </td>
                                         <td>
                                             <a href="{{ url('/employees/employee/' . $employee->id) }}" title="View Employee">
                                                 {{ $employee->name }}

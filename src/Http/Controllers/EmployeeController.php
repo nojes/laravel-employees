@@ -116,8 +116,9 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $requestData = $request->all();
-        
+
         $employee = Employee::findOrFail($id);
+        $requestData['photo'] = $request->file('photo')->store('public/employees/photos');
         $employee->update($requestData);
 
         return redirect('employees/employee')->with('flash_message', 'Employee updated!');

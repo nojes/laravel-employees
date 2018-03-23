@@ -54,6 +54,14 @@
         {!! $errors->first('hired_at', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+<div class="form-group {{ $errors->has('photo') ? 'has-error' : ''}}">
+    <label for="photo" class="col-md-4 control-label">{{ 'Photo' }}</label>
+    <div class="col-md-6">
+        <img src="{{Storage::url($employee->photo)}}" alt="" class="img-responsive img-thumbnail">
+        <input class="form-control" name="photo" type="file" id="photo">
+        {!! $errors->first('photo', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">

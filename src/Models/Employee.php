@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string name
  * @property integer salary
- * @property timestamp hired_at
+ * @property int hired_at
+ * @property string photo
  *
  * @property Employee head
  * @property Position position
@@ -35,7 +36,7 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['head_id', 'position_id', 'name', 'salary', 'hired_at'];
+    protected $fillable = ['head_id', 'position_id', 'name', 'salary', 'hired_at', 'photo'];
 
     public function head()
     {

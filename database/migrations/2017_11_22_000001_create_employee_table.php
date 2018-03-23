@@ -29,6 +29,7 @@ class CreateEmployeeTable extends Migration
             $table->string('name')->nullable()->comment('Name');
             $table->integer('salary')->nullable()->comment('Salary');
             $table->timestamp('hired_at')->nullable()->comment('Hired At');
+            $table->string('photo')->nullable()->comment('Photo');
             $table->timestamps();
         });
 
