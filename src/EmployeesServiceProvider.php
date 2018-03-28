@@ -38,6 +38,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->commands('\nojes\employees\Console\InstallCommand');
+        $this->commands('\nojes\employees\Console\SeedCommand');
 
         $this->viewsPath = (!empty(config('employees.views_path')))
             ? base_path(config('employees.views_path'))

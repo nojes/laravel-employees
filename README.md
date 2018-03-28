@@ -33,6 +33,10 @@ $ php artisan vendor:publish --provider="nojes\employees\EmployeesServiceProvide
 ### Database seeding
 If you want to have some example entries in the database, this command will seed models tables with test data:
 ```
+$ php artisan employees:seed
+```
+or
+```
 $ php artisan db:seed --class="nojes\employees\database\seeds\EmployeesDatabaseSeeder"
 ```
 
