@@ -57,12 +57,20 @@
                                             <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="30px" height="30px">
                                         </td>
                                         <td>
-                                            <a href="{{ url('/employees/employee/' . $employee->id) }}" title="View Employee">
+                                            <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee">
                                                 {{ $employee->name }}
                                             </a>
                                         </td>
-                                        <td>{{ $employee->head->name }}</td>
-                                        <td>{{ $employee->position->title }}</td>
+                                        <td>
+                                            <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee Head">
+                                                {{ $employee->head->name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('/employees/position', $employee->position_id) }}" title="View Employee Position">
+                                                {{ $employee->position->title }}
+                                            </a>
+                                        </td>
                                         <td>${{ $employee->salary }}</td>
                                         <td>{{ Carbon\Carbon::parse($employee->hired_at)->format('Y-m-d') }}</td>
                                         <td>{{ Carbon\Carbon::parse($employee->updated_at)->diffForHumans() }}</td>
