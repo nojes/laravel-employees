@@ -68,6 +68,7 @@ class EmployeeController extends Controller
     {
         $requestData = $request->all();
 
+        $requestData['photo'] = $request->file('photo')->store('public/employees/photos');
         Employee::create($requestData);
 
         return redirect('employees/employee')->with('flash_message', 'Employee added!');
