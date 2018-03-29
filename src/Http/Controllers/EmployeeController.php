@@ -67,9 +67,13 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
+        $requestFile = $request->file('photo');
 
-        $requestData['photo'] = $request->file('photo')->store('public/employees/photos');
+        if(!empty($requestFile)) {
+            $requestData['photo'] = $requestFile->store('public/employees/photos');
+        }
         Employee::create($requestData);
+
 
         return redirect('employees/employee')->with('flash_message', 'Employee added!');
     }
@@ -117,12 +121,16 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $requestData = $request->all();
+        $requestFile = $request->file('photo');
 
         $employee = Employee::findOrFail($id);
-        $requestData['photo'] = $request->file('photo')->store('public/employees/photos');
+
+        if(!empty($requestFile)) {
+            $requestData['photo'] = $requestFile->store('public/employees/photos');
+        }
         $employee->update($requestData);
 
-        return redirect('employees/employee')->with('flash_message', 'Employee updated!');
+        return redirect('employees/employee/' . $id . '/edit')->with('flash_message', 'Employee updated!');
     }
 
     /**
