@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration or $employee->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="30px" height="30px">
+                                            <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="40px" height="40px">
                                         </td>
                                         <td>
                                             <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee">
@@ -67,8 +67,8 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('/employees/position', $employee->position_id) }}" title="View Employee Position">
-                                                {{ $employee->position->title }}
+                                            <a href="{{ url('/employees/position', $employee->id) }}" title="View Employee Position">
+                                                {{ $employee->position->title}}
                                             </a>
                                         </td>
                                         <td>${{ $employee->salary }}</td>

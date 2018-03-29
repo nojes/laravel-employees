@@ -25,16 +25,29 @@
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr>
-                                        <th> Head </th>
-                                        <td> {{ $employee->head->name   }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Position </th>
-                                        <td> {{ $employee->position->title }} </td>
+                                        <th> Photo </th>
+                                        <td><img src="{{ Storage::url($employee->photo) }}" alt="" class="col-md-6"></td>
                                     </tr>
                                     <tr>
                                         <th> Name </th>
                                         <td> {{ $employee->name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Position </th>
+                                        <td>
+                                            <a href="{{ url('employees/position', $employee->position_id) }}">
+                                                {{ $employee->position->title }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Head </th>
+                                        <td>
+                                            <img src="{{ Storage::url($employee->head->photo) }}" alt="" class="img-circle" width="40px" height="40px">
+                                            <a href="{{ url('employees/employee', $employee->head_id) }}">
+                                                {{ $employee->head->name }}
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

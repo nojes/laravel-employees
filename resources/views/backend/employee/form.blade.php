@@ -51,7 +51,7 @@
     <div class="form-group {{ $errors->has('hired_at') ? 'has-error' : ''}}">
         <label for="hired_at" class="col-md-4 control-label">{{ 'Hired At' }}</label>
         <div class="col-md-6">
-            <input class="form-control" name="hired_at" type="datetime-local" id="hired_at" value="{{ $employee->hired_at or date("Y-m-d H:i:s")}}" >
+            <input class="form-control" name="hired_at" type="date" id="hired_at" value="{{ $employee->hired_at or date("Y-m-d H:i:s")}}" >
             {!! $errors->first('hired_at', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
