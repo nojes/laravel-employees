@@ -1,6 +1,6 @@
 @php
 /**
- * @var \nojes\employees\Models\Position $positions[]
+ * @var \nojes\employees\Models\Position[] $positions
  * @var \nojes\employees\Models\Employee $employee
  */
 @endphp

@@ -5,12 +5,15 @@ namespace nojes\employees\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use nojes\employees\Http\Controllers\Employee\Tree;
 use nojes\employees\Models\Employee;
 use nojes\employees\Models\Position;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    use Tree;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -145,5 +148,14 @@ class EmployeeController extends Controller
         Employee::destroy($id);
 
         return redirect('employees/employee')->with('flash_message', 'Employee deleted!');
+    }
+
+    public function tree()
+    {
+        $employees = Employee::with(['head', 'position'])
+            ->get()
+            ->toTree();
+
+        return view('employees::backend.employee.tree.index', compact('employees'));
     }
 }

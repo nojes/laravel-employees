@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateEmployeeTable extends Migration
 {
@@ -31,6 +32,7 @@ class CreateEmployeeTable extends Migration
             $table->date('hired_at')->nullable()->comment('Hired At');
             $table->string('photo')->nullable()->comment('Photo');
             $table->timestamps();
+            NestedSet::columns($table);
         });
 
         Schema::table($this->set_schema_table, function (Blueprint $table) {

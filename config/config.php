@@ -17,6 +17,13 @@ return [
     */
     'views_path' => 'resources/views/vendor/employees/',
 
+    'publish' => [
+        'views' => false,
+        'migrations' => false,
+        'seeds' => false,
+        'factories' => false,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Config for seeders.

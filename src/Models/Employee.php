@@ -3,11 +3,13 @@
 namespace nojes\employees\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * Employee model.
  *
  * @property string name
+ * @property integer head_id
  * @property integer salary
  * @property int hired_at
  * @property string photo
@@ -17,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Employee extends Model
 {
+    use NodeTrait;
+
     /**
      * The database table used by the model.
      *

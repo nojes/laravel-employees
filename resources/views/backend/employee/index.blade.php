@@ -2,7 +2,7 @@
 
 @php
 /**
- * @var \nojes\employees\Models\Employee $employees[]
+ * @var \nojes\employees\Models\Employee[] $employees
  */
 @endphp
 

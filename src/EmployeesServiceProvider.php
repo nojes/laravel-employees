@@ -1,6 +1,7 @@
 <?php
 namespace nojes\employees;
 
+use Illuminate\Database\Seeder;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
@@ -74,11 +75,13 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerViews()
     {
-        $this->loadViewsFrom($this->viewsPath, 'employees');
-
-        $this->publishes([
-            $this->packagePath('resources/views') => base_path('resources/views/vendor/employees/'),
-        ], 'views');
+        if(!config('employees.publish.views')) {
+            $this->loadViewsFrom($this->viewsPath, 'employees');
+        } else {
+            $this->publishes([
+                $this->packagePath('resources/views') => base_path('resources/views/vendor/employees/'),
+            ], 'views');
+        }
     }
 
     /**
@@ -89,9 +92,13 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerMigrations()
     {
-        $this->publishes([
-            $this->packagePath('database/migrations') => database_path('/migrations')
-        ], 'migrations');
+        if(!config('employees.publish.migrations')) {
+            $this->loadMigrationsFrom($this->packagePath('database/migrations'));
+        } else {
+            $this->publishes([
+                $this->packagePath('database/migrations') => database_path('/migrations')
+            ], 'migrations');
+        }
     }
 
     /**
@@ -101,9 +108,13 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerSeeds()
     {
-        $this->publishes([
-            $this->packagePath('database/seeds') => database_path('/seeds')
-        ], 'seeds');
+        if(!config('employees.publish.seeds')) {
+            $this->app->make(Seeder::class)->load($this->packagePath('database/seeds'));
+        } else {
+            $this->publishes([
+                $this->packagePath('database/seeds') => database_path('/seeds')
+            ], 'seeds');
+        }
     }
 
     /**
@@ -127,12 +138,13 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     protected function registerFactories()
     {
-//        $this->app->make(EloquentFactory::class)->load($this->packagePath('database/factories'));
-//        $this->app->make(EloquentFactory::class)->load($this->packagePath('database/factories'));
+        $this->app->make(EloquentFactory::class)->load($this->packagePath('database/factories'));
 
-        $this->publishes([
-            $this->packagePath('database/factories') => database_path('/factories'),
-        ], 'public');
+        if(config('employees.publish.factories')) {
+            $this->publishes([
+                $this->packagePath('database/factories') => database_path('/factories'),
+            ], 'public');
+        }
     }
 
     /**
@@ -177,6 +189,8 @@ class EmployeesServiceProvider extends BaseServiceProvider
             'middleware' => ['web'],
             'prefix' => 'employees'
         ], function(Router $router) {
+            $router->get('employee/tree', 'Http\Controllers\EmployeeController@tree')->name('employee.tree');
+            $router->post('employee/tree/update', 'Http\Controllers\EmployeeController@updateTree')->name('employee.tree.update');
             $router->resource('employee', 'Http\Controllers\EmployeeController');
             $router->resource('position', 'Http\Controllers\PositionController');
         });
