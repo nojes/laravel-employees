@@ -54,7 +54,7 @@
 
 @section('scripts')
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="{{ url('jquery.mjs.nestedSortable.js) }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/nojes/nestedSortable/jquery.mjs.nestedSortable.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
       $(document).ready(function ($) {
@@ -66,8 +66,8 @@
         });
       });
 
-      $('.to-array').click(function(e){
-        items = $('ol.sortable').nestedSortable('toArray');
+      $('.to-array').click(function(e) {
+        var items = $('ol.sortable').nestedSortable('toArray');
         // console.log(items);
 
         $.ajax({

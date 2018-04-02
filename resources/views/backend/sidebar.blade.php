@@ -15,6 +15,11 @@
                         <span class="badge">{{ \nojes\employees\Models\Position::count() }}</span>
                     </a>
                 </li>
+                <li role="presentation" class="{!! Request::is('employees/employee/tree') ? "active" : "" !!}">
+                    <a href="{{ url('/employees/employee/tree') }}">
+                        Tree
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
