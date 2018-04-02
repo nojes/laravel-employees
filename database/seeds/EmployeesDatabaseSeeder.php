@@ -3,6 +3,7 @@
 namespace nojes\employees\database\seeds;
 
 use Illuminate\Database\Seeder;
+use nojes\employees\Models\Position;
 
 class EmployeesDatabaseSeeder extends Seeder
 {
@@ -13,7 +14,22 @@ class EmployeesDatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(EmployeePositionTableSeeder::class);
-         $this->call(EmployeeTableSeeder::class);
+        $this->seedPositions();
+        $this->seedEmployees();
+    }
+
+    protected function seedPositions()
+    {
+        $emptyTable = empty(Position::count());
+        $seedOnce = config('employees.seeds.position.once', true);
+
+        if ($emptyTable || !$seedOnce) {
+            $this->call(EmployeePositionTableSeeder::class);
+        }
+    }
+
+    protected function seedEmployees()
+    {
+        $this->call(EmployeeTableSeeder::class);
     }
 }

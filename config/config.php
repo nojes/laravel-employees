@@ -34,6 +34,7 @@ return [
             'count' => 100,
         ],
         'position' => [
+            'once' => true,
             'method' => EmployeePositionTableSeeder::INSERT_METHOD,
             'titles' => [
                 'Accessibility Specialist',
