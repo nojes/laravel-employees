@@ -8,7 +8,7 @@
 <li class="list-group-item" id="{{ 'employee_'.$employee->id }}">
     <div>
         <span>
-            <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="40px" height="40px">
+            <img src="{{ $employee->photoUrl }}" alt="" class="img-circle" width="40px" height="40px">
 
             <strong>{{ $employee->position->title }}</strong>
 
@@ -18,7 +18,6 @@
         </span>
 
         @if(count($employee->children) > 0)
-            {{--<br><br>--}}
             <ol>
                 @include('employees::backend.employee.tree.items', ['employees' => $employee->children])
             </ol>

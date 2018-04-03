@@ -21,7 +21,7 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        <form method="GET" action="{{ url('/employees/employee/create') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
+                        <form method="GET" action="{{ url('/employees/employee') }}" accept-charset="UTF-8" class="navbar-form navbar-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                                 <span class="input-group-btn">
@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration or $employee->id }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($employee->photo) }}" alt="" class="img-circle" width="40px" height="40px">
+                                            <img src="{{ $employee->photoUrl }}" alt="" class="img-circle" width="40px" height="40px">
                                         </td>
                                         <td>
                                             <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee">
@@ -67,7 +67,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('/employees/position', $employee->id) }}" title="View Employee Position">
+                                            <a href="{{ url('/employees/position', $employee->position_id) }}" title="View Employee Position">
                                                 {{ $employee->position->title}}
                                             </a>
                                         </td>

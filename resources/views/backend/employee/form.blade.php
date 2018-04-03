@@ -59,7 +59,7 @@
         <label for="photo" class="col-md-4 control-label">{{ 'Photo' }}</label>
         <div class="col-md-6">
             @if(!empty($employee->photo))
-                <img src="{{ Storage::url($employee->photo)}}" alt="" class="img-responsive img-thumbnail">
+                <img src="{{ $employee->photoUrl }}" alt="" class="img-responsive img-thumbnail">
             @endif
             <input class="form-control" name="photo" type="file" id="photo">
             {!! $errors->first('photo', '<p class="help-block">:message</p>') !!}

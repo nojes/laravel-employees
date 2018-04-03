@@ -31,11 +31,11 @@ class EmployeeController extends Controller
 
         if (!empty($keyword)) {
             $employees = Employee::with(['head', 'position'])
-                ->where('parent_id', 'LIKE', "%$keyword%")
-                ->orWhere('position_id', 'LIKE', "%$keyword%")
+                ->whereHas('position', function($query) use($keyword) {
+                    $query->where('title', 'LIKE', '%'.$keyword.'%');
+                })
                 ->orWhere('name', 'LIKE', "%$keyword%")
-                ->orWhere('surname', 'LIKE', "%$keyword%")
-                ->orWhere('patronymic', 'LIKE', "%$keyword%")
+                ->orWhere('position_id', 'LIKE', "%$keyword%")
                 ->orWhere('salary', 'LIKE', "%$keyword%")
                 ->orWhere('hired_at', 'LIKE', "%$keyword%")
                 ->paginate($perPage);

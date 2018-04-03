@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Employee Position model.
  *
+ * @property integer id
  * @property string title
+ * @property int created_at
+ * @property int updated_at
  */
 class Position extends Model
 {
@@ -32,5 +35,5 @@ class Position extends Model
      */
     protected $fillable = ['title'];
 
-    
+
 }
