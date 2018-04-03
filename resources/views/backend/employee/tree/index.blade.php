@@ -14,25 +14,11 @@
         </div>
 
         <div class="row">
-
-            {{--<ol class="sortable">--}}
-                {{--<li><div>Some content</div></li>--}}
-                {{--<li>--}}
-                    {{--<div>Some content</div>--}}
-                    {{--<ol>--}}
-                        {{--<li><div>Some sub-item content</div></li>--}}
-                        {{--<li><div>Some sub-item content</div></li>--}}
-                    {{--</ol>--}}
-                {{--</li>--}}
-                {{--<li><div>Some content</div></li>--}}
-            {{--</ol>--}}
-
-
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Employees</div>
                     <div class="panel-body">
-                        <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save </button>
+                        <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
 
                         <br>
                         <br>
@@ -42,7 +28,7 @@
                                 @include('employees::backend.employee.tree.items', compact($employees))
                             </ol>
 
-                            <button class="btn btn-success pull-right to-array" data-style="zoom-in"><i class="fa fa-save"></i> Save </button>
+                            <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
                         </div>
 
                     </div>
@@ -58,44 +44,59 @@
 
     <script type="text/javascript">
       $(document).ready(function ($) {
+
         $('.sortable').nestedSortable({
+          forcePlaceholderSize: true,
           handle: 'div',
+          helper: 'clone',
           items: 'li',
+          opacity: .6,
+          placeholder: 'placeholder',
+          revert: 250,
+          tabSize: 25,
+          tolerance: 'pointer',
           toleranceElement: '> div',
-          isTree: true
+
+          isTree: true,
+          expandOnHover: 700,
+          startCollapsed: false
         });
-      });
 
-      $('.to-array').click(function(e) {
-        var items = $('ol.sortable').nestedSortable('toArray');
-        // console.log(items);
 
-        $.ajax({
-          url: 'tree/update',
-          type: 'POST',
-          data: {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            items: items
+
+        $('.to-array').click(function (e) {
+          var items = $('ol.sortable').nestedSortable('toArray');
+          // console.log(items);
+
+          $.ajax({
+            url: 'tree/update',
+            type: 'POST',
+            data: {
+              _token: $('meta[name="csrf-token"]').attr('content'),
+              items: items
+            }
+          })
+            .done(function () {
+              console.log("success");
+            })
+            .fail(function () {
+              console.log("error");
+            })
+            .always(function () {
+              console.log("complete");
+            });
+
+        });
+
+        $.ajaxPrefilter(function (options, originalOptions, xhr) {
+          var token = $('meta[name="csrf-token"]').attr('content');
+
+          if (token) {
+            return xhr.setRequestHeader('X-XSRF-TOKEN', token);
           }
-        })
-          .done(function() {
-            console.log("success");
-          })
-          .fail(function() {
-            console.log("error");
-          })
-          .always(function() {
-            console.log("complete");
-          });
+        });
 
       });
 
-      $.ajaxPrefilter(function(options, originalOptions, xhr) {
-        var token = $('meta[name="csrf-token"]').attr('content');
-
-        if (token) {
-          return xhr.setRequestHeader('X-XSRF-TOKEN', token);
-        }
-      });
     </script>
 @endsection

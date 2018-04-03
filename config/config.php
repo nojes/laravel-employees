@@ -32,6 +32,7 @@ return [
     'seeds' => [
         'employee' => [
             'count' => 100,
+            'depth' => 3,
         ],
         'position' => [
             'once' => true,

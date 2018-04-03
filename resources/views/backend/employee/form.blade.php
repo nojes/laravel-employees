@@ -6,18 +6,18 @@
 @endphp
 
 <div>
-    <div class="form-group {{ $errors->has('head_id') ? 'has-error' : ''}}">
-        <label for="head_id" class="col-md-4 control-label">{{ 'Head' }}</label>
+    <div class="form-group {{ $errors->has('parent_id') ? 'has-error' : ''}}">
+        <label for="parent_id" class="col-md-4 control-label">{{ 'Head' }}</label>
         <div class="col-md-6">
-            <select class="form-control" name="head_id" id="head_id">
+            <select class="form-control" name="parent_id" id="parent_id">
                 <option value=""> - </option>
                 @foreach($heads as $head)
-                    @php $selected = (isset($employee) && $head->id == $employee->head_id) ? 'selected' : ''; @endphp
+                    @php $selected = (isset($employee) && $head->id == $employee->parent_id) ? 'selected' : ''; @endphp
                     <option value="{{$head->id}}" {{$selected}}>{{$head->name}}</option>
                 @endforeach
             </select>
-            {{--<input class="form-control" name="head_id" type="number" id="head_id" value="{{ $employee->head_id or ''}}" >--}}
-            {!! $errors->first('head_id', '<p class="help-block">:message</p>') !!}
+            {{--<input class="form-control" name="parent_id" type="number" id="parent_id" value="{{ $employee->parent_id or ''}}" >--}}
+            {!! $errors->first('parent_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group {{ $errors->has('position_id') ? 'has-error' : ''}}">

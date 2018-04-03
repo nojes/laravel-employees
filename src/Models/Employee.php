@@ -8,8 +8,9 @@ use Kalnoy\Nestedset\NodeTrait;
 /**
  * Employee model.
  *
+ * @property integer id
  * @property string name
- * @property integer head_id
+ * @property integer parent_id
  * @property integer salary
  * @property int hired_at
  * @property string photo
@@ -40,11 +41,11 @@ class Employee extends Model
      *
      * @var array
      */
-    protected $fillable = ['head_id', 'position_id', 'name', 'salary', 'hired_at', 'photo'];
+    protected $fillable = ['parent_id', 'position_id', 'name', 'salary', 'hired_at', 'photo'];
 
     public function head()
     {
-        return $this->belongsTo('nojes\employees\Models\Employee', 'head_id')->withDefault();
+        return $this->belongsTo('nojes\employees\Models\Employee', 'parent_id')->withDefault();
     }
 
     public function position()

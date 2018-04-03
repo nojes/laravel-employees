@@ -44,7 +44,7 @@
                                         <th> Head </th>
                                         <td>
                                             <img src="{{ Storage::url($employee->head->photo) }}" alt="" class="img-circle" width="40px" height="40px">
-                                            <a href="{{ url('employees/employee', $employee->head_id) }}">
+                                            <a href="{{ url('employees/employee', $employee->parent_id) }}">
                                                 {{ $employee->head->name }}
                                             </a>
                                         </td>

@@ -31,7 +31,7 @@ class EmployeeController extends Controller
 
         if (!empty($keyword)) {
             $employees = Employee::with(['head', 'position'])
-                ->where('head_id', 'LIKE', "%$keyword%")
+                ->where('parent_id', 'LIKE', "%$keyword%")
                 ->orWhere('position_id', 'LIKE', "%$keyword%")
                 ->orWhere('name', 'LIKE', "%$keyword%")
                 ->orWhere('surname', 'LIKE', "%$keyword%")
@@ -154,6 +154,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::with(['head', 'position'])
             ->get()
+            ->sortBy('_lft')
             ->toTree();
 
         return view('employees::backend.employee.tree.index', compact('employees'));
