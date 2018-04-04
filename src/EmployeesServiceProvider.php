@@ -31,6 +31,14 @@ class EmployeesServiceProvider extends BaseServiceProvider
     protected $viewsPath = 'resources/views/';
 
     /**
+     * @var array
+     */
+    protected $commands = [
+        \nojes\employees\Console\InstallCommand::class,
+        \nojes\employees\Console\SeedCommand::class,
+    ];
+
+    /**
      * Register the service provider.
      *
      * @see http://laravel.com/docs/master/providers#the-register-method
@@ -38,8 +46,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->commands('\nojes\employees\Console\InstallCommand');
-        $this->commands('\nojes\employees\Console\SeedCommand');
+        $this->commands($this->commands);
 
         $this->viewsPath = (!empty(config('employees.views_path')))
             ? base_path(config('employees.views_path'))
@@ -126,7 +133,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
     protected function registerAssets()
     {
         $this->publishes([
-            $this->packagePath('resources/assets') => public_path('nojes/employees'),
+            $this->packagePath('resources/assets') => public_path('vendor/nojes/employees'),
         ], 'public');
     }
 
