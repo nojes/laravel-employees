@@ -39,6 +39,10 @@ return [
         'employee' => [
             'count' => 100,
             'depth' => 3,
+            'states' => [
+                //'defaultPhoto'
+                //'localPhoto'
+            ]
         ],
         'position' => [
             'once' => true,

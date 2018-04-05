@@ -42,7 +42,7 @@ class EmployeePositionTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info('Using `'.$this->method.'` seeding method.');
+        $this->command->comment('Using `'.$this->method.'` seeding method.');
         $this->{$this->method}();
         $this->command->info('Inserted '.$this->count.' records.');
     }
