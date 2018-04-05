@@ -8,11 +8,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | The path where the package views are stored.
-    | ('{package-path}/resources/views/' by default)
+    | Config for views, rendering.
     |--------------------------------------------------------------------------
     */
-//    'views_path' => 'resources/views/vendor/employees/',
+    'views' => [
+        /*
+        | The path where the package views are stored.
+        | ('{package-path}/resources/views/' by default)
+        */
+//        'path' => 'resources/views/vendor/employees/'
+
+        'tree' => [
+            'lazyChildren' => true,
+        ]
+    ],
 
     'publish' => [
         'views' => false,

@@ -79,7 +79,7 @@ class Employee extends Model
      */
     public function getPhotoUrlAttribute()
     {
-        $photo = $this->attributes['photo'];
+        $photo = $this->photo;
         if (!empty($photo)) {
             $photo = (starts_with($photo, 'https')) ? $photo : Storage::url($photo);
         } else {

@@ -149,11 +149,4 @@ class EmployeeController extends Controller
 
         return redirect('employees/employee')->with('flash_message', 'Employee deleted!');
     }
-
-    public function tree()
-    {
-        $employees = Employee::get()->sortBy('_lft');
-
-        return view('employees::backend.employee.tree.index', compact('employees'));
-    }
 }

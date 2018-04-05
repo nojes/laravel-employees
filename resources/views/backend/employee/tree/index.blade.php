@@ -15,9 +15,7 @@
 
             <div class="col-md-12">
                 <div class="row">
-                    <ol class="sortable">
-                        @include('employees::backend.employee.tree.items', compact($employees))
-                    </ol>
+                    @include('employees::backend.employee.tree.items', compact($employees))
 
                     <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
                 </div>
@@ -28,50 +26,69 @@
 
 @push('scripts')
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="{{ asset('vendor/nojes/employees/plugins/nestedSortable/jquery.mjs.nestedSortable.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('vendor/nojes/employees/js/plugins/nestedSortable/jquery.mjs.nestedSortable.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
       $(document).ready(function ($) {
 
-        $('.sortable').nestedSortable({
-          forcePlaceholderSize: true,
-          handle: 'div',
-          helper: 'clone',
-          items: 'li',
-          opacity: .6,
-          placeholder: 'placeholder',
-          revert: 250,
-          tabSize: 25,
-          tolerance: 'pointer',
-          toleranceElement: '> div',
+        var token = $('meta[name="csrf-token"]').attr('content');
 
-          isTree: true,
-          expandOnHover: 700,
-          startCollapsed: false
+        $('.sortable').nestedSortable({
+            handle: 'div',
+            items: 'li',
+            opacity: .6,
+            placeholder: 'placeholder',
+            revert: 250,
+            tabSize: 25,
+            tolerance: 'pointer',
+            toleranceElement: '> div',
+
+            isTree: true,
+            expandOnHover: 700,
+            startCollapsed: false
         });
 
+        $('#employee_tree').on('click', '.disclose', function() {
+          var $this = $(this);
+          var $parent = $this.parent();
+          var $ol = $('ol', $parent);
+          var id = $this.data('target').split('_').pop();
 
+          $this.text(($this.text().trim() === '+') ? '-' : '+');
+
+          if (!$ol.length) {
+              $.ajax({
+                url: '/employees/employee/'+id+'/tree/item/children',
+                type: 'GET',
+                dataType: 'html'
+                // data: {htmlOptions: {id: 'collapse_'+id, class: 'collapse'}}
+              })
+                .done(function (items) {
+                    $parent.append(items);
+                    $('ol', $parent).toggleClass('in');
+                })
+                .fail(function (response) {
+                  console.log(response);
+                })
+          }
+        });
 
         $('.to-array').click(function (e) {
           var items = $('ol.sortable').nestedSortable('toArray');
-          // console.log(items);
 
           $.ajax({
             url: 'tree/update',
             type: 'POST',
             data: {
-              _token: $('meta[name="csrf-token"]').attr('content'),
+              _token: token,
               items: items
             }
           })
-            .done(function () {
-              console.log("success");
+            .done(function (response) {
+              console.log(response);
             })
-            .fail(function () {
-              console.log("error");
-            })
-            .always(function () {
-              console.log("complete");
+            .fail(function (response) {
+              console.log(response);
             });
 
         });

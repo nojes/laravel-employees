@@ -9,9 +9,8 @@ use nojes\employees\Models\Employee;
 use nojes\employees\Models\Position;
 
 /**
- * Class PackageServiceProvider
+ * Employees Service Provider.
  *
- * @package nojes\employees
  * @see http://laravel.com/docs/master/packages#service-providers
  * @see http://laravel.com/docs/master/providers
  */
@@ -48,8 +47,8 @@ class EmployeesServiceProvider extends BaseServiceProvider
     {
         $this->commands($this->commands);
 
-        $this->viewsPath = (!empty(config('employees.views_path')))
-            ? base_path(config('employees.views_path'))
+        $this->viewsPath = (!empty(config('employees.views.path')))
+            ? base_path(config('employees.views.path'))
             : $this->packagePath($this->viewsPath);
     }
 
@@ -200,6 +199,7 @@ class EmployeesServiceProvider extends BaseServiceProvider
              * Other
              */
             $router->get('employee/tree', 'Http\Controllers\EmployeeController@tree')->name('employee.tree');
+            $router->get('employee/{id}/tree/item/children', 'Http\Controllers\EmployeeController@treeItemChildren')->name('employee.tree.item');
             $router->post('employee/tree/update', 'Http\Controllers\EmployeeController@updateTree')->name('employee.tree.update');
 
             /*
