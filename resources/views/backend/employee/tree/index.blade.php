@@ -16,6 +16,7 @@
             <div class="col-md-12">
                 <div class="row">
                     @include('employees::backend.employee.tree.items', compact($employees))
+                    <div class="pagination-wrapper">{{ $employees->links() }}</div>
 
                     <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
                 </div>

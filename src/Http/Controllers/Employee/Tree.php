@@ -17,6 +17,8 @@ trait Tree
             ->get()
             ->toTree();
 
+        $employees = paginate($employees, 15, null, ['path' => '/employees/employee/tree/']);
+
         return view('employees::backend.employee.tree.index', compact('employees'));
     }
 
