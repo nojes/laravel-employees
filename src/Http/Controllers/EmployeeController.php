@@ -152,10 +152,7 @@ class EmployeeController extends Controller
 
     public function tree()
     {
-        $employees = Employee::with(['head', 'position'])
-            ->get()
-            ->sortBy('_lft')
-            ->toTree();
+        $employees = Employee::get()->sortBy('_lft');
 
         return view('employees::backend.employee.tree.index', compact('employees'));
     }

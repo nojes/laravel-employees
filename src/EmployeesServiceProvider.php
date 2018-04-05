@@ -196,10 +196,23 @@ class EmployeesServiceProvider extends BaseServiceProvider
             'middleware' => ['web'],
             'prefix' => 'employees'
         ], function(Router $router) {
+            /*
+             * Other
+             */
             $router->get('employee/tree', 'Http\Controllers\EmployeeController@tree')->name('employee.tree');
             $router->post('employee/tree/update', 'Http\Controllers\EmployeeController@updateTree')->name('employee.tree.update');
+
+            /*
+             * Web resources
+             */
             $router->resource('employee', 'Http\Controllers\EmployeeController');
             $router->resource('position', 'Http\Controllers\PositionController');
+
+            /*
+             * API resources
+             */
+            $router->resource('api/employee', 'Http\Controllers\API\EmployeeController');
+            $router->resource('api/position', 'Http\Controllers\API\PositionController');
         });
     }
 

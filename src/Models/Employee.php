@@ -24,6 +24,8 @@ use Kalnoy\Nestedset\NodeTrait;
  *
  * @property Employee head
  * @property Position position
+ * @property Employee[] children
+ *
  */
 class Employee extends Model
 {
