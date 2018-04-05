@@ -27,6 +27,9 @@
         "bosnadev/repositories": "0.*"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "nojes\\employees\\": "src",
             "nojes\\employees\\database\\seeds\\": "database/seeds"
