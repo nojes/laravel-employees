@@ -20,6 +20,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <i class="fa fa-search"></i>
+                            Find
                         </button>
                     </span>
                 </div>
@@ -55,9 +56,13 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee Head">
-                                    {{ $employee->head->name }}
-                                </a>
+                                @if($employee->parent_id)
+                                    <a href="{{ url('/employees/employee', $employee->id) }}" title="View Employee Head">
+                                        {{ $employee->head->name }}
+                                    </a>
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ url('/employees/position', $employee->position_id) }}" title="View Employee Position">

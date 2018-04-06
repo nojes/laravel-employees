@@ -10,9 +10,15 @@ trait Tree
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tree()
+    public function tree(Request $request)
     {
+        $keyword = $request->get('search');
+
         $employees = Employee::with(['position', 'children'])
+            ->whereHas('position', function($query) use($keyword) {
+                $query->where('title', 'LIKE', '%'.$keyword.'%');
+            })
+            ->orWhere('name', 'LIKE', "%$keyword%")
             ->whereIsRoot()
             ->paginate();
 

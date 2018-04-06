@@ -10,7 +10,26 @@
     <div class="panel panel-default">
         <div class="panel-heading">Employees</div>
         <div class="panel-body">
-            <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="GET" action="{{ url('/employees/employee/tree') }}" accept-charset="UTF-8" class="" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Search сhiefs..." value="{{ request('search') }}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                    Find
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            @if(count($employees))
+                <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save changes</button>
+            @endif
             <br><br>
 
             <div class="col-md-12">
@@ -21,7 +40,9 @@
                 <div class="row">
                     <div class="pagination-wrapper">
                         {{ $employees->links() }}
-                        <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
+                        @if(count($employees) > 10)
+                            <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save changes</button>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -14,6 +14,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <i class="fa fa-search"></i>
+                            Find
                         </button>
                     </span>
                 </div>

@@ -1,5 +1,11 @@
 @extends('employees::backend.layout')
 
+@php
+/**
+ * @var \nojes\employees\Models\Employee $employee
+ */
+@endphp
+
 @section('employees::content')
     <div class="panel panel-default">
         <div class="panel-heading">Employee {{ $employee->id }}</div>
@@ -21,7 +27,7 @@
                     <tbody>
                         <tr>
                             <th> Photo </th>
-                            <td><img src="{{ Storage::url($employee->photo) }}" alt="" class="col-md-6"></td>
+                            <td><img src="{{ $employee->photoUrl }}" alt="" class="col-md-6"></td>
                         </tr>
                         <tr>
                             <th> Name </th>
@@ -35,15 +41,25 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <th> Head </th>
-                            <td>
-                                <img src="{{ Storage::url($employee->head->photo) }}" alt="" class="img-circle" width="40px" height="40px">
-                                <a href="{{ url('employees/employee', $employee->parent_id) }}">
-                                    {{ $employee->head->name }}
-                                </a>
-                            </td>
-                        </tr>
+                        @if($employee->parent_id)
+                            <tr>
+                                <th> Head </th>
+                                <td>
+                                    <img src="{{ $employee->head->photoUrl }}" alt="" class="img-circle" width="40px" height="40px">
+                                    <a href="{{ url('employees/employee', $employee->parent_id) }}">
+                                        {{ $employee->head->name }}
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+                        @if(count($employee->children))
+                            <tr>
+                                <th> Subordinates </th>
+                                <td>
+                                    @include('employees::backend.employee.tree.items', ['employees' => $employee->children])
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
