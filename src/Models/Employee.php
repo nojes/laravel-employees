@@ -26,6 +26,8 @@ use Kalnoy\Nestedset\NodeTrait;
  * @property Position position
  * @property Employee[] children
  *
+ * @method \Kalnoy\Nestedset\Collection toTree($root = false)
+ * @method \Kalnoy\Nestedset\QueryBuilder whereIsRoot()
  */
 class Employee extends Model
 {

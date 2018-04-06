@@ -13,11 +13,8 @@ trait Tree
     public function tree()
     {
         $employees = Employee::with(['position', 'children'])
-            ->defaultOrder()
-            ->get()
-            ->toTree();
-
-        $employees = paginate($employees, 15, null, ['path' => '/employees/employee/tree/']);
+            ->whereIsRoot()
+            ->paginate();
 
         return view('employees::backend.employee.tree.index', compact('employees'));
     }

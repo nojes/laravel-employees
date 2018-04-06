@@ -16,9 +16,13 @@
             <div class="col-md-12">
                 <div class="row">
                     @include('employees::backend.employee.tree.items', compact($employees))
-                    <div class="pagination-wrapper">{{ $employees->links() }}</div>
+                </div>
 
-                    <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
+                <div class="row">
+                    <div class="pagination-wrapper">
+                        {{ $employees->links() }}
+                        <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,7 +44,7 @@
             opacity: .6,
             placeholder: 'placeholder',
             revert: 250,
-            tabSize: 25,
+            // tabSize: 25,
             tolerance: 'pointer',
             toleranceElement: '> div',
 
