@@ -55,7 +55,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $positions = Position::all();
-        $heads = Employee::all();
+        $heads = Employee::whereIsRoot()->limit(500)->get();
 
         return view('employees::backend.employee.create', compact('positions', 'heads'));
     }
@@ -90,7 +90,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::with(['head', 'position'])->findOrFail($id);
+        $employee = Employee::with(['head', 'position', 'children'])->findOrFail($id);
 
         return view('employees::backend.employee.show', compact('employee'));
     }
@@ -105,7 +105,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
-        $heads = Employee::all()->except($id);
+        $heads = Employee::whereIsRoot()->limit(500)->get()->except($id);
         $positions = Position::all();
 
         return view('employees::backend.employee.edit', compact(
