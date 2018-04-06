@@ -28,7 +28,7 @@
             </div>
 
             @if(count($employees))
-                <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save changes</button>
+                <button class="btn btn-success pull-right btn-save-tree"><i class="fa fa-save"></i> Save changes</button>
             @endif
             <br><br>
 
@@ -41,7 +41,7 @@
                     <div class="pagination-wrapper">
                         {{ $employees->links() }}
                         @if(count($employees) > 10)
-                            <button class="btn btn-success pull-right to-array"><i class="fa fa-save"></i> Save changes</button>
+                            <button class="btn btn-success pull-right btn-save-tree"><i class="fa fa-save"></i> Save changes</button>
                         @endif
                     </div>
                 </div>
@@ -58,6 +58,8 @@
       $(document).ready(function ($) {
 
         var token = $('meta[name="csrf-token"]').attr('content');
+        var $btnSaveTree = $('.btn-save-tree');
+        var btnSaveTreeText = $btnSaveTree.first().text();
 
         $('.sortable').nestedSortable({
             handle: 'div',
@@ -99,8 +101,9 @@
           }
         });
 
-        $('.to-array').click(function (e) {
+        $btnSaveTree.click(function (e) {
           var items = $('ol.sortable').nestedSortable('toArray');
+          var savingText = 'Saving...';
 
           $.ajax({
             url: 'tree/update',
@@ -110,10 +113,22 @@
               items: items
             }
           })
+            .always(function () {
+              $btnSaveTree.text(savingText);
+              $btnSaveTree.prop('disabled', true);
+            })
             .done(function (response) {
+              $btnSaveTree.prop('disabled', false);
+              $btnSaveTree.text($btnSaveTree.first().text() + ' (ok)');
+
+              setTimeout(function () {
+                $btnSaveTree.text(btnSaveTreeText);
+              }, 1000);
+
               console.log(response);
             })
             .fail(function (response) {
+              $btnSaveTree.text(savingText + ' (error)');
               console.log(response);
             });
 
