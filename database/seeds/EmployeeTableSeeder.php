@@ -4,6 +4,7 @@ namespace nojes\employees\database\seeds;
 
 use Illuminate\Database\Seeder;
 use nojes\employees\Models\Employee;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class EmployeeTableSeeder extends Seeder
 {
@@ -21,6 +22,11 @@ class EmployeeTableSeeder extends Seeder
      * @var array Factory states to be applied to the model.
      */
     protected $states = [];
+
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface | \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    protected $output;
 
     /**
      * @var int Count of root nodes.
@@ -51,51 +57,64 @@ class EmployeeTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->output = $this->command->getOutput();
+
         $this->command->comment("Records count: ".$this->count);
         $this->command->comment("Nodes depth: ".$this->depth);
         $this->command->comment("Root nodes: ".$this->_rootNodesCount);
         $this->command->comment("Child nodes: ".$this->_childNodesCount);
 
-        $this->command->info("Inserting...");
         $this->callFactories();
 
-        $this->command->info('Inserted '.$this->count.' records.');
+        $this->command->info("\nInserted ".$this->count.' records.');
     }
 
     protected function callFactories()
     {
+        $this->command->info("\nInserting root nodes...");
         $this->createRootNodes();
+
+        $this->command->info("\nInserting child nodes...");
         $this->createChildNodes();
     }
 
     protected function createRootNodes()
     {
-        factory(Employee::class, $this->_rootNodesCount)
-            ->states($this->states)
-            ->create()
-            ->each(function(Employee $employee) {
-                // TODO: verbose
-                //$this->command->info('Saved employee with id:'.$employee->id);
-            });
+        $this->callFactory($this->_rootNodesCount);
     }
 
     protected function createChildNodes()
     {
-        factory(Employee::class, $this->_childNodesCount)
+        $this->callFactory($this->_childNodesCount, function (Employee $employee) {
+            $employees = Employee::limit($this->_childNodesCount)->get(['id']);
+
+            do {$randomId = $employees->random()->id;}
+            while ($randomId == $employee->id);
+
+            $employee->parent_id = $randomId;
+            $employee->save();
+        });
+    }
+
+    /**
+     * @param integer $count Count of create models.
+     * @param Closure|null $closure Handles for each model.
+     */
+    protected function callFactory($count, $closure = null)
+    {
+        $closure = (!empty($closure)) ? $closure : function(Employee $employee) {$employee->save();};
+        $progressBar = $this->output->createProgressBar($count);
+        $progressBar->start();
+
+        factory(Employee::class, $count)
             ->states($this->states)
-            ->create()
-            ->each(function(Employee $employee) {
-                $employees = Employee::limit($this->_childNodesCount)->get(['id']);
+            ->make()
+            ->each(function(Employee $employee) use ($closure, $progressBar) {
+                $closure($employee);
 
-                do {$randomId = $employees->random()->id;}
-                while ($randomId == $employee->id);
+                $progressBar->advance();
+            });
 
-                $employee->parent_id = $randomId;
-                $employee->save();
-
-                // TODO: verbose
-                //$this->command->info('Saved employee with id: '.$employee->id);
-            }
-        );
+        $progressBar->finish();
     }
 }
