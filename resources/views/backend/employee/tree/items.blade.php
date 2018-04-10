@@ -10,3 +10,7 @@
         @include('employees::backend.employee.tree._item', ['employee' => $employee])
     @endforeach
 </ol>
+
+@push('scripts')
+    <script src="{{ asset('vendor/nojes/employees/js/tree/items.js') }}" type="text/javascript"></script>
+@endpush
