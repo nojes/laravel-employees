@@ -4,7 +4,6 @@ namespace nojes\employees\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * Employee model.
@@ -26,13 +25,10 @@ use Kalnoy\Nestedset\NodeTrait;
  * @property Position position
  * @property Employee[] children
  *
- * @method \Kalnoy\Nestedset\Collection toTree($root = false)
- * @method \Kalnoy\Nestedset\QueryBuilder whereIsRoot()
+ * @method \Illuminate\Database\Eloquent\Builder whereIsRoot()
  */
 class Employee extends Model
 {
-    use NodeTrait;
-
     /**
      * The database table used by the model.
      *
@@ -61,7 +57,7 @@ class Employee extends Model
      */
     public function head()
     {
-        return $this->belongsTo('nojes\employees\Models\Employee', 'parent_id')->withDefault();
+        return $this->belongsTo(get_class($this), 'parent_id')->withDefault();
     }
 
     /**
@@ -73,6 +69,27 @@ class Employee extends Model
 	{
 		return $this->belongsTo('nojes\employees\Models\Position', 'position_id')->withDefault();
 	}
+
+    /**
+     * Returns Employee children.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(get_class($this), 'parent_id')->orderBy('_lft');
+    }
+
+    /**
+     * Returns root nodes.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWhereIsRoot($query)
+    {
+        return $query->whereNull('parent_id');
+    }
 
     /**
      * Returns photo url.

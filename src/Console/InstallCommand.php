@@ -1,9 +1,6 @@
 <?php
 
 namespace nojes\employees\Console;
-
-use File;
-use nojes\employees\Console\Command;
 use Symfony\Component\Process\Process;
 
 /**

@@ -102,7 +102,12 @@ class EmployeeTableSeeder extends Seeder
      */
     protected function callFactory($count, $closure = null)
     {
-        $closure = (!empty($closure)) ? $closure : function(Employee $employee) {$employee->save();};
+        $closure = (!empty($closure))
+            ? $closure
+            : function(Employee $employee) {
+                $employee->save();
+            };
+
         $progressBar = $this->output->createProgressBar($count);
         $progressBar->start();
 
@@ -111,7 +116,6 @@ class EmployeeTableSeeder extends Seeder
             ->make()
             ->each(function(Employee $employee) use ($closure, $progressBar) {
                 $closure($employee);
-
                 $progressBar->advance();
             });
 

@@ -13,14 +13,18 @@ trait Tree
     public function tree(Request $request)
     {
         $keyword = $request->get('search');
+        $employees = Employee::with(['position', 'children']);
 
-        $employees = Employee::with(['position', 'children'])
-            ->whereHas('position', function($query) use($keyword) {
-                $query->where('title', 'LIKE', '%'.$keyword.'%');
-            })
-            ->orWhere('name', 'LIKE', "%$keyword%")
-            ->whereIsRoot()
-            ->paginate();
+        if (!empty($keyword)) {
+            $employees = $employees
+                ->whereHas('position', function($query) use($keyword) {
+                    $query->where('title', 'LIKE', '%'.$keyword.'%');
+                })
+                ->orWhere('name', 'LIKE', "%$keyword%");
+        } else {
+            $employees = $employees->whereIsRoot();
+        }
+        $employees = $employees->paginate();
 
         return view('employees::backend.employee.tree.index', compact('employees'));
     }
@@ -33,7 +37,10 @@ trait Tree
     public function treeItemChildren($id, Request $request)
     {
         /** @var Employee $employee */
-        $employee = Employee::with(['children', 'position'])->findOrFail($id);
+        $employee = Employee::with(['children', 'position'])
+            ->orderBy('_lft')
+            ->findOrFail($id);
+
         $htmlOptions = $request->get('htmlOptions', [
             'id' => 'collapse_'.$id,
             'class' => 'collapse'

@@ -23,7 +23,6 @@
     "require": {
         "illuminate/support": "~5.1",
         "php" : "~5.6|~7.0",
-        "kalnoy/nestedset": "^4.3",
         "bosnadev/repositories": "0.*"
     },
     "autoload": {

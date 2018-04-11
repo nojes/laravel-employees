@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Kalnoy\Nestedset\NestedSet;
 
 class CreateEmployeeTable extends Migration
 {
@@ -25,8 +24,10 @@ class CreateEmployeeTable extends Migration
 
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->increments('id')->comment('ID');
-            NestedSet::columns($table);
-            $table->integer('position_id')->unsigned()->nullable()->comment('Position ID');
+            $table->unsignedInteger('_lft')->nullable()->default(0)->comment('Left ID');
+            $table->unsignedInteger('_rgt')->nullable()->default(0)->comment('Right ID');
+            $table->unsignedInteger('parent_id')->nullable()->comment('Head ID');
+            $table->unsignedInteger('position_id')->nullable()->comment('Position ID');
             $table->string('name')->nullable()->comment('Name');
             $table->integer('salary')->nullable()->comment('Salary');
             $table->date('hired_at')->nullable()->comment('Hired At');

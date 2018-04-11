@@ -103,6 +103,7 @@
               console.log(response);
             })
             .fail(function (response) {
+              $btnSaveTree.prop('disabled', false);
               $btnSaveTree.text(savingText + ' (error)');
               console.log(response);
             });
